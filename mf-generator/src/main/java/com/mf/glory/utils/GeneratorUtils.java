@@ -177,9 +177,6 @@ public class GeneratorUtils {
 		if (template.contains("Mapper.xml.vm" )) {
 			return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Mapper.xml";
 		}
-		/***
-		 * 如果为了方便也可以设置统一路径输出文件
-		 */
 		return null;
 	}
 
