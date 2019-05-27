@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${package}.${moduleName}mapper.${className}Mapper">
+
+    <sql id="queryFields">
+		#foreach($column in $columns)
+        ${column.columnName} as ${column.attrname} #if($velocityCount != $columns.size()),
+		#end #end
+    </sql>
+
+    <select id="select${className}By${pk.attrname}" parameterType="long" resultType="${package}.${moduleName}pojo.${className}">
+        select
+            <include refid="queryFields"/>
+        from
+            ${tableName}
+        where
+            ${pk.columnName}=#{${pk.attrname}}
+        limit 1
+    </select>
+
+    <select id="select${className}List" resultType="${package}.${moduleName}pojo.${className}">
+        select
+            <include refid="queryFields"/>
+        from
+            ${tableName}
+        where
+            ${pk.columnName}=#{${pk.attrname}}
+        order by gmt_create desc
+    </select>
+
+    <select id="select${className}Count" resultType="int">
+        select
+            count(1)
+        from
+		    ${tableName}
+        where
+		    ${pk.columnName}=#{${pk.attrname}}
+    </select>
+
+    <insert id="insert${className}" parameterType="${package}.${moduleName}pojo.${className}" keyProperty="${pk.attrname}" useGeneratedKeys="true">
+		${insertSql}
+    </insert>
+
+    <delete id="delete${className}">
+        delete from ${tableName} where ${pk.columnName}=#{${pk.attrname}}
+    </delete>
+
+    <update id="update${className}" parameterType="${package}.${moduleName}pojo.${className}">
+        updated
+            ${tableName}
+        set
+#foreach($column in $columns)
+    #if ($column.dataType == "VARCHAR")
+        <if test="${column.attrname} != null and ${column.attrname} != ''">
+          ${column.attrname} = #{${column.columnName}} #if($velocityCount != $columns.size()),
+        #end
+        </if>
+    #else
+        <if test="${column.attrname} != null">
+            ${column.columnName} = #{${column.attrname}} #if($velocityCount != $columns.size()),
+        #end
+        </if>
+    #end
+#end
+        where
+            ${pk.columnName}=#{${pk.attrname}}
+    </update>
+
+</mapper>

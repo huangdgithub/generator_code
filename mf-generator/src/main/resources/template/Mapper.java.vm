@@ -1,0 +1,28 @@
+package ${package}.${moduleName}mapper;
+
+import ${package}.${moduleName}pojo.${className};
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${className}Mapper {
+
+    void insert${className}(${className} ${classname});
+
+    void delete${className}(${pk.attrType} ${pk.attrname});
+
+    void update${className}(${className} ${classname});
+
+    ${className} select${className}By${pk.attrname}(${pk.attrType} ${pk.attrname});
+
+    List<${className}> select${className}List(Map<String,Object> params);
+
+    int select${className}Count(Map<String,Object> params);
+
+}

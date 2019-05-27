@@ -1,0 +1,20 @@
+server:
+  port: 8899
+  servlet:
+    context-path: /mf-generator
+
+spring:
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://rm-bp1p370cv3zdend2fo.mysql.rds.aliyuncs.com:3306/angela_test?useUnicode=true&characterEncoding=utf8&serverTimezone=CTT
+      username: wakeup_test
+      password: gqFJcnSsVRJwUdv1
+  jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+  resources:
+      static-locations: classpath:/static/,classpath:/views/
+
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
